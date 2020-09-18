@@ -104,20 +104,32 @@ class ComplexViewController: UIViewController {
         let b = UILabel()
         b.text = "Swift"
         b.font = .systemFont(ofSize: 40, weight: .bold)
-        b.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        if #available(iOS 13.0, *) {
+            b.textColor = .label
+        } else {
+            b.textColor = .black
+        }
         b.textAlignment = .center
         
         let c = UILabel()
         c.text = "The powerful programming language that is also easy to learn."
         c.font = .systemFont(ofSize: 24, weight: .medium)
-        c.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        if #available(iOS 13.0, *) {
+            c.textColor = .label
+        } else {
+            c.textColor = .black
+        }
         c.textAlignment = .center
         c.numberOfLines = 0
         
         let d = UILabel()
         d.text = "Swift is a powerful and intuitive programming language for macOS, iOS, watchOS, tvOS and beyond. Writing Swift code is interactive and fun, the syntax is concise yet expressive, and Swift includes modern features developers love. Swift code is safe by design, yet also produces software that runs lightning-fast."
         d.font = .systemFont(ofSize: 17, weight: .regular)
-        d.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        if #available(iOS 13.0, *) {
+            d.textColor = .label
+        } else {
+            d.textColor = .black
+        }
         d.textAlignment = .center
         d.numberOfLines = 0
         
