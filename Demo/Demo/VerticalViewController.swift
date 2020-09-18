@@ -70,6 +70,6 @@ class VerticalViewController: UIViewController {
         .view(b)
         .view(c)
         .view(d)
-        .finish()
+        .done()
     }
 }

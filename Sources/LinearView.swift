@@ -15,6 +15,9 @@ import UIKit
 
 public class LinearView: UIView {
     
+    typealias Item = LinearLayout.Item
+    typealias Space = LinearLayout.Space
+    
     private var layout: LinearLayout = .init() {
         didSet { update(layout) }
     }
@@ -103,26 +106,22 @@ public class LinearView: UIView {
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         
-        /// 设置起始间距
-        spacing(layout.spaces[-1])
+        var current: WrapperView?
         
         // 设置子视图
-        for (index, view) in layout.views.enumerated() {
+        for (index, item) in layout.items.enumerated() {
                         
-            let view = view()
-            let wrapper = UIView()
-            wrapper.backgroundColor = .clear
-            wrapper.addSubview(view.view)
+            let wrapper = WrapperView(item())
             
-            view.view.translatesAutoresizingMaskIntoConstraints = false
+            wrapper.item.view.translatesAutoresizingMaskIntoConstraints = false
             wrapper.translatesAutoresizingMaskIntoConstraints = false
             
             switch layout.axis {
             case .vertical:
-                switch view.layout {
+                switch wrapper.item.layout {
                 case let .constant(value, alignment):
                     let constraint = NSLayoutConstraint(
-                        item: view.view,
+                        item: wrapper.item.view,
                         attribute: .width,
                         relatedBy: .equal,
                         toItem: nil,
@@ -131,8 +130,8 @@ public class LinearView: UIView {
                         constant: value
                     )
                     constraint.priority = .init(rawValue: 999)
-                    constraint.identifier = "StackView"
-                    view.view.addConstraint(constraint)
+                    constraint.identifier = "LinearView"
+                    wrapper.item.view.addConstraint(constraint)
                     
                     switch alignment.value {
                     case 0:
@@ -141,7 +140,7 @@ public class LinearView: UIView {
                                 item: wrapper,
                                 attribute: .centerX,
                                 relatedBy: .equal,
-                                toItem: view.view,
+                                toItem: wrapper.item.view,
                                 attribute: .centerX,
                                 multiplier: 1,
                                 constant: -(alignment.offset ?? 0)
@@ -154,7 +153,7 @@ public class LinearView: UIView {
                                 item: wrapper,
                                 attribute: .leading,
                                 relatedBy: .equal,
-                                toItem: view.view,
+                                toItem: wrapper.item.view,
                                 attribute: .leading,
                                 multiplier: 1,
                                 constant: -(alignment.offset ?? 0)
@@ -167,7 +166,7 @@ public class LinearView: UIView {
                                 item: wrapper,
                                 attribute: .trailing,
                                 relatedBy: .equal,
-                                toItem: view.view,
+                                toItem: wrapper.item.view,
                                 attribute: .trailing,
                                 multiplier: 1,
                                 constant: alignment.offset ?? 0
@@ -184,7 +183,7 @@ public class LinearView: UIView {
                             item: wrapper,
                             attribute: .leading,
                             relatedBy: .equal,
-                            toItem: view.view,
+                            toItem: wrapper.item.view,
                             attribute: .leading,
                             multiplier: 1,
                             constant: -leading
@@ -193,7 +192,7 @@ public class LinearView: UIView {
                             item: wrapper,
                             attribute: .trailing,
                             relatedBy: .equal,
-                            toItem: view.view,
+                            toItem: wrapper.item.view,
                             attribute: .trailing,
                             multiplier: 1,
                             constant: trailing
@@ -206,7 +205,7 @@ public class LinearView: UIView {
                         item: wrapper,
                         attribute: .top,
                         relatedBy: .equal,
-                        toItem: view.view,
+                        toItem: wrapper.item.view,
                         attribute: .top,
                         multiplier: 1,
                         constant: 0
@@ -215,7 +214,7 @@ public class LinearView: UIView {
                         item: wrapper,
                         attribute: .bottom,
                         relatedBy: .equal,
-                        toItem: view.view,
+                        toItem: wrapper.item.view,
                         attribute: .bottom,
                         multiplier: 1,
                         constant: 0
@@ -223,10 +222,10 @@ public class LinearView: UIView {
                 ])
                 
             case .horizontal:
-                switch view.layout {
+                switch wrapper.item.layout {
                 case let .constant(value, alignment):
                     let constraint = NSLayoutConstraint(
-                        item: view.view,
+                        item: wrapper.item.view,
                         attribute: .height,
                         relatedBy: .equal,
                         toItem: nil,
@@ -235,8 +234,8 @@ public class LinearView: UIView {
                         constant: value
                     )
                     constraint.priority = .init(rawValue: 999)
-                    constraint.identifier = "StackView"
-                    view.view.addConstraint(constraint)
+                    constraint.identifier = "LinearView"
+                    wrapper.item.view.addConstraint(constraint)
                     
                     switch alignment.value {
                     case 0:
@@ -245,7 +244,7 @@ public class LinearView: UIView {
                                 item: wrapper,
                                 attribute: .centerY,
                                 relatedBy: .equal,
-                                toItem: view.view,
+                                toItem: wrapper.item.view,
                                 attribute: .centerY,
                                 multiplier: 1,
                                 constant: -(alignment.offset ?? 0)
@@ -258,7 +257,7 @@ public class LinearView: UIView {
                                 item: wrapper,
                                 attribute: .top,
                                 relatedBy: .equal,
-                                toItem: view.view,
+                                toItem: wrapper.item.view,
                                 attribute: .top,
                                 multiplier: 1,
                                 constant: -(alignment.offset ?? 0)
@@ -271,7 +270,7 @@ public class LinearView: UIView {
                                 item: wrapper,
                                 attribute: .bottom,
                                 relatedBy: .equal,
-                                toItem: view.view,
+                                toItem: wrapper.item.view,
                                 attribute: .bottom,
                                 multiplier: 1,
                                 constant: alignment.offset ?? 0
@@ -288,7 +287,7 @@ public class LinearView: UIView {
                             item: wrapper,
                             attribute: .top,
                             relatedBy: .equal,
-                            toItem: view.view,
+                            toItem: wrapper.item.view,
                             attribute: .top,
                             multiplier: 1,
                             constant: -leading
@@ -297,7 +296,7 @@ public class LinearView: UIView {
                             item: wrapper,
                             attribute: .bottom,
                             relatedBy: .equal,
-                            toItem: view.view,
+                            toItem: wrapper.item.view,
                             attribute: .bottom,
                             multiplier: 1,
                             constant: trailing
@@ -310,7 +309,7 @@ public class LinearView: UIView {
                         item: wrapper,
                         attribute: .leading,
                         relatedBy: .equal,
-                        toItem: view.view,
+                        toItem: wrapper.item.view,
                         attribute: .leading,
                         multiplier: 1,
                         constant: 0
@@ -319,7 +318,7 @@ public class LinearView: UIView {
                         item: wrapper,
                         attribute: .trailing,
                         relatedBy: .equal,
-                        toItem: view.view,
+                        toItem: wrapper.item.view,
                         attribute: .trailing,
                         multiplier: 1,
                         constant: 0
@@ -327,57 +326,75 @@ public class LinearView: UIView {
                 ])
                 
             @unknown default:
-                break
+                continue
             }
             
+            // 添加间距视图
+            spacing(layout.spaces[index], last: current, next: wrapper)
+            // 添加包装视图
             stackView.addArrangedSubview(wrapper)
-            
-            /// 设置间距视图
-            spacing(layout.spaces[index])
+            // 记录当前包装视图
+            current = wrapper
         }
+        
+        // 添加结尾间距视图
+        spacing(layout.spaces[layout.items.count], last: current, next: .none)
     }
     
-    private func spacing(_ value: CGFloat?) {
-        guard let value = value else {
+    private func spacing(_ value: [Space]?, last: WrapperView?, next: WrapperView?) {
+        guard let array = value else {
             return
         }
         
-        let wrapper = UIView()
-        wrapper.backgroundColor = .clear
-        wrapper.translatesAutoresizingMaskIntoConstraints = false
-        
-        switch layout.axis {
-        case .vertical:
-            wrapper.addConstraint(
-                .init(
-                    item: wrapper,
-                    attribute: .height,
-                    relatedBy: .equal,
-                    toItem: nil,
-                    attribute: .height,
-                    multiplier: 1,
-                    constant: value
-                )
-            )
+        for space in array {
+            let view = SpacingView(space)
+            view.backgroundColor = .clear
+            view.translatesAutoresizingMaskIntoConstraints = false
             
-        case .horizontal:
-            wrapper.addConstraint(
-                .init(
-                    item: wrapper,
-                    attribute: .width,
-                    relatedBy: .equal,
-                    toItem: nil,
-                    attribute: .width,
-                    multiplier: 1,
-                    constant: value
+            switch layout.axis {
+            case .vertical:
+                view.addConstraint(
+                    .init(
+                        item: view,
+                        attribute: .height,
+                        relatedBy: .equal,
+                        toItem: nil,
+                        attribute: .height,
+                        multiplier: 1,
+                        constant: space.constant
+                    )
                 )
-            )
+                
+            case .horizontal:
+                view.addConstraint(
+                    .init(
+                        item: view,
+                        attribute: .width,
+                        relatedBy: .equal,
+                        toItem: nil,
+                        attribute: .width,
+                        multiplier: 1,
+                        constant: space.constant
+                    )
+                )
+                
+            @unknown default:
+                continue
+            }
             
-        @unknown default:
-            break
+            stackView.addArrangedSubview(view)
+            
+            // 间距模式
+            switch space.mode {
+            case .follow:
+                // 添加需要跟随的视图
+                view.add(follow: last)
+                view.add(follow: next)
+                
+            default:
+                break
+            }
         }
-        
-        stackView.addArrangedSubview(wrapper)
     }
 }
 
@@ -389,5 +406,59 @@ extension LinearView {
     public func layout(_ axis: NSLayoutConstraint.Axis = .vertical) -> LinearLayout {
         layout = .init(axis)
         return layout
+    }
+}
+
+fileprivate class WrapperView: UIView {
+    
+    typealias Item = LinearLayout.Item
+    
+    let item: Item
+    
+    private var observation: NSKeyValueObservation?
+    
+    init(_ item: Item) {
+        self.item = item
+        super.init(frame: .zero)
+        backgroundColor = .clear
+        addSubview(item.view)
+        
+        observation = item.view.observe(\.isHidden) { [weak self] (object, changed) in
+            self?.isHidden = object.isHidden
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+fileprivate class SpacingView: UIView {
+    
+    typealias Space = LinearLayout.Space
+    
+    let space: Space
+    
+    private var observations: [NSKeyValueObservation] = []
+    
+    init(_ space: Space) {
+        self.space = space
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func add(follow view: UIView?) {
+        guard let view = view else {
+            return
+        }
+        
+        observations.append(
+            view.observe(\.isHidden) { [weak self] (object, changed) in
+                self?.isHidden = object.isHidden
+            }
+        )
     }
 }

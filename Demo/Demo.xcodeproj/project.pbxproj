@@ -18,6 +18,10 @@
 		9B7B2B2C25135EF1000913D7 /* VerticalFixedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B2B2B25135EF1000913D7 /* VerticalFixedViewController.swift */; };
 		9B7B2B2E2513619D000913D7 /* HorizontalVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B2B2D2513619D000913D7 /* HorizontalVerticalViewController.swift */; };
 		9B7B2B30251361AB000913D7 /* VerticalHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B2B2F251361AB000913D7 /* VerticalHorizontalViewController.swift */; };
+		9BF8CF7225149CE6005D22E7 /* SpacingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8CF7125149CE6005D22E7 /* SpacingViewController.swift */; };
+		9BF8CF742514A12E005D22E7 /* ComplexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8CF732514A12E005D22E7 /* ComplexViewController.swift */; };
+		9BF8CF762514A183005D22E7 /* AlignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8CF752514A183005D22E7 /* AlignmentViewController.swift */; };
+		9BF8CF782514A733005D22E7 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8CF772514A733005D22E7 /* VideoPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,10 @@
 		9B7B2B2B25135EF1000913D7 /* VerticalFixedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalFixedViewController.swift; sourceTree = "<group>"; };
 		9B7B2B2D2513619D000913D7 /* HorizontalVerticalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalVerticalViewController.swift; sourceTree = "<group>"; };
 		9B7B2B2F251361AB000913D7 /* VerticalHorizontalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalHorizontalViewController.swift; sourceTree = "<group>"; };
+		9BF8CF7125149CE6005D22E7 /* SpacingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingViewController.swift; sourceTree = "<group>"; };
+		9BF8CF732514A12E005D22E7 /* ComplexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexViewController.swift; sourceTree = "<group>"; };
+		9BF8CF752514A183005D22E7 /* AlignmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentViewController.swift; sourceTree = "<group>"; };
+		9BF8CF772514A733005D22E7 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		BC003608AB3AD48329FD3D8D /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -95,10 +103,14 @@
 				9B7B2B2B25135EF1000913D7 /* VerticalFixedViewController.swift */,
 				9B7B2B2D2513619D000913D7 /* HorizontalVerticalViewController.swift */,
 				9B7B2B2F251361AB000913D7 /* VerticalHorizontalViewController.swift */,
+				9BF8CF7125149CE6005D22E7 /* SpacingViewController.swift */,
+				9BF8CF752514A183005D22E7 /* AlignmentViewController.swift */,
+				9BF8CF732514A12E005D22E7 /* ComplexViewController.swift */,
 				9B7B2B172513331F000913D7 /* Main.storyboard */,
 				9B7B2B1A25133320000913D7 /* Assets.xcassets */,
 				9B7B2B1C25133320000913D7 /* LaunchScreen.storyboard */,
 				9B7B2B1F25133320000913D7 /* Info.plist */,
+				9BF8CF772514A733005D22E7 /* VideoPlayerView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -220,7 +232,11 @@
 			files = (
 				9B7B2B30251361AB000913D7 /* VerticalHorizontalViewController.swift in Sources */,
 				9B7B2B162513331F000913D7 /* HorizontalViewController.swift in Sources */,
+				9BF8CF762514A183005D22E7 /* AlignmentViewController.swift in Sources */,
+				9BF8CF782514A733005D22E7 /* VideoPlayerView.swift in Sources */,
+				9BF8CF7225149CE6005D22E7 /* SpacingViewController.swift in Sources */,
 				9B7B2B122513331F000913D7 /* AppDelegate.swift in Sources */,
+				9BF8CF742514A12E005D22E7 /* ComplexViewController.swift in Sources */,
 				9B7B2B2825133CB1000913D7 /* VerticalViewController.swift in Sources */,
 				9B7B2B2A25135ED0000913D7 /* HorizontalFixedViewController.swift in Sources */,
 				9B7B2B2E2513619D000913D7 /* HorizontalVerticalViewController.swift in Sources */,
@@ -370,6 +386,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B9D8DJR5J5;
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -389,6 +406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B9D8DJR5J5;
 				INFOPLIST_FILE = Demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

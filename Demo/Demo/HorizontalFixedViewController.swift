@@ -71,6 +71,6 @@ class HorizontalFixedViewController: UIViewController {
         .view(b)
         .view(c)
         .view(d)
-        .finish()
+        .done()
     }
 }

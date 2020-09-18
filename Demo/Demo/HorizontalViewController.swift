@@ -115,7 +115,7 @@ class HorizontalViewController: UIViewController {
         .view(b)
         .view(c)
         .view(d)
-        .finish()
+        .done()
     }
 }
 

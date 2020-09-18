@@ -1,8 +1,8 @@
 //
-//  VerticalFixedViewController.swift
+//  SpacingViewController.swift
 //  Demo
 //
-//  Created by Lee on 2020/9/17.
+//  Created by Lee on 2020/9/18.
 //  Copyright © 2020 Lee. All rights reserved.
 //
 
@@ -10,14 +10,12 @@ import UIKit
 import SnapKit
 import LinearView
 
-class VerticalFixedViewController: UIViewController {
+class SpacingViewController: UIViewController {
 
     lazy var linearView = LinearView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 同UIStackView一致 垂直排列布局 必须设置视图宽度. 如果设置了高度, 子视图则会自适应间距.
         
         setup()
         setupViews()
@@ -32,35 +30,34 @@ class VerticalFixedViewController: UIViewController {
         
         linearView.snp.makeConstraints { (make) in
             make.width.equalTo(200)
-            make.height.equalTo(400)
             make.center.equalToSuperview()
         }
     }
     
     private func setupViews() {
         let a = UIView()
-        a.backgroundColor = #colorLiteral(red: 1, green: 0.7568627451, blue: 0.9529411765, alpha: 1)
+        a.backgroundColor = #colorLiteral(red: 0.1607843137, green: 0.2039215686, blue: 0.3843137255, alpha: 1)
         
         a.snp.makeConstraints { (make) in
             make.height.equalTo(20)
         }
         
         let b = UIView()
-        b.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.8862745098, blue: 0.8078431373, alpha: 1)
+        b.backgroundColor = #colorLiteral(red: 0.1294117647, green: 0.3960784314, blue: 0.5137254902, alpha: 1)
         
         b.snp.makeConstraints { (make) in
             make.height.equalTo(40)
         }
         
         let c = UIView()
-        c.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.968627451, blue: 0.8509803922, alpha: 1)
+        c.backgroundColor = #colorLiteral(red: 0.968627451, green: 0.3843137255, blue: 0.3843137255, alpha: 1)
         
         c.snp.makeConstraints { (make) in
             make.height.equalTo(80)
         }
         
         let d = UIView()
-        d.backgroundColor = #colorLiteral(red: 0.8117647059, green: 1, blue: 0.9960784314, alpha: 1)
+        d.backgroundColor = #colorLiteral(red: 1, green: 0.9450980392, blue: 0.7568627451, alpha: 1)
         
         d.snp.makeConstraints { (make) in
             make.height.equalTo(160)
@@ -68,9 +65,26 @@ class VerticalFixedViewController: UIViewController {
         
         linearView.layout(.vertical)
         .view(a)
+        .spacing(10)
         .view(b)
+        //.spacing(20, mode: .follow) // 设置为跟随模式 间距将跟随临近的视图显示与隐藏
+        .spacing(20)
         .view(c)
+        .spacing(30)
         .view(d)
         .done()
+        
+        // 模拟某视图隐藏
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            UIView.animate(withDuration: 2) {
+                c.isHidden = true
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                UIView.animate(withDuration: 2) {
+                    c.isHidden = false
+                }
+            }
+        }
     }
 }
