@@ -1,0 +1,23 @@
+PODS:
+  - LinearView (1.0.0)
+  - SnapKit (5.0.1)
+
+DEPENDENCIES:
+  - LinearView (from `../`)
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SnapKit
+
+EXTERNAL SOURCES:
+  LinearView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  LinearView: f1b300be0271e56f8e10bd8adac2299ca4d9163d
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+
+PODFILE CHECKSUM: 60de993fcdb875ec3784220f656add5fd9fb50aa
+
+COCOAPODS: 1.9.3
