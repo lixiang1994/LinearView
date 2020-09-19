@@ -9,5 +9,5 @@
 
 -----
 
-Linear layout view based on UIStackView Use chain encapsulation to quickly build vertical or horizontal layout views.
+线性布局视图 基于 UIStackView, 使用链式封装 快速构建垂直或水平排版的视图.
 
