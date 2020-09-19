@@ -18,7 +18,7 @@ public class LinearView: UIView {
     typealias Item = LinearLayout.Item
     typealias Space = LinearLayout.Space
     
-    private var layout: LinearLayout = .init() {
+    public private(set) var layout: LinearLayout = .init() {
         didSet { update(layout) }
     }
     
@@ -28,16 +28,12 @@ public class LinearView: UIView {
         super.init(frame: frame)
         setup()
         setupLayout()
-        
-        update(layout)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
         setupLayout()
-        
-        update(layout)
     }
     
     private func setup() {
@@ -93,7 +89,15 @@ public class LinearView: UIView {
     }
     
     private func update(_ layout: LinearLayout) {
-        layout.changed = { [weak self] in
+        layout.spacingChanged = { [weak self] space in
+            self?.stackView.arrangedSubviews.forEach {
+                guard let view = $0 as? SpacingView else { return }
+                guard view.space.identifier == space.identifier else { return }
+                view.set(space.constant)
+            }
+        }
+        
+        layout.completed = { [weak self] in
             self?.update(layout)
         }
         
@@ -347,41 +351,7 @@ public class LinearView: UIView {
         }
         
         for space in array {
-            let view = SpacingView(space)
-            view.backgroundColor = .clear
-            view.translatesAutoresizingMaskIntoConstraints = false
-            
-            switch layout.axis {
-            case .vertical:
-                view.addConstraint(
-                    .init(
-                        item: view,
-                        attribute: .height,
-                        relatedBy: .equal,
-                        toItem: nil,
-                        attribute: .height,
-                        multiplier: 1,
-                        constant: space.constant
-                    )
-                )
-                
-            case .horizontal:
-                view.addConstraint(
-                    .init(
-                        item: view,
-                        attribute: .width,
-                        relatedBy: .equal,
-                        toItem: nil,
-                        attribute: .width,
-                        multiplier: 1,
-                        constant: space.constant
-                    )
-                )
-                
-            @unknown default:
-                continue
-            }
-            
+            let view = SpacingView(space, axis: layout.axis)
             stackView.addArrangedSubview(view)
             
             // 间距模式
@@ -437,17 +407,56 @@ fileprivate class SpacingView: UIView {
     
     typealias Space = LinearLayout.Space
     
-    let space: Space
-    
+    private(set) var space: Space
+    private weak var constraint: NSLayoutConstraint?
     private var observations: [NSKeyValueObservation] = []
     
-    init(_ space: Space) {
+    init(_ space: Space, axis: NSLayoutConstraint.Axis) {
         self.space = space
         super.init(frame: .zero)
+        
+        backgroundColor = .clear
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        switch axis {
+        case .vertical:
+            let constraint = NSLayoutConstraint(
+                item: self,
+                attribute: .height,
+                relatedBy: .equal,
+                toItem: nil,
+                attribute: .height,
+                multiplier: 1,
+                constant: space.constant
+            )
+            addConstraint(constraint)
+            self.constraint = constraint
+            
+        case .horizontal:
+            let constraint = NSLayoutConstraint(
+                item: self,
+                attribute: .width,
+                relatedBy: .equal,
+                toItem: nil,
+                attribute: .width,
+                multiplier: 1,
+                constant: space.constant
+            )
+            addConstraint(constraint)
+            self.constraint = constraint
+            
+        @unknown default:
+            break
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func set(_ constant: CGFloat) {
+        space.constant = constant
+        constraint?.constant = constant
     }
     
     func add(follow view: UIView?) {

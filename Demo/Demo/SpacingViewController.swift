@@ -67,8 +67,8 @@ class SpacingViewController: UIViewController {
         .view(a)
         .spacing(10)
         .view(b)
-        //.spacing(20, mode: .follow) // 设置为跟随模式 间距将跟随临近的视图显示与隐藏
-        .spacing(20)
+        .spacing(20, mode: .follow) // 设置为跟随模式 间距将跟随临近的视图显示与隐藏
+//        .spacing(20)
         .view(c)
         .spacing(30)
         .view(d)

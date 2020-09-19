@@ -14,7 +14,8 @@
 import UIKit
 
 public class LinearLayout {
-    var changed: (() -> Void)?
+    var spacingChanged: (((constant: CGFloat, identifier: String)) -> Void)?
+    var completed: (() -> Void)?
     
     let axis: NSLayoutConstraint.Axis
     var items: [() -> Item] = []
@@ -60,14 +61,15 @@ public class LinearLayout {
     /// - Parameters:
     ///   - value: spacing      Greater than or equal to zero
     ///   - mode: mode      The default is .fixed
+    ///   - identifier: identifier
     /// - Returns: LinearLayout
     @discardableResult
-    public func spacing(_ value: CGFloat, mode: Space.Mode = .fixed) -> Self {
+    public func spacing(_ value: CGFloat, mode: Space.Mode = .fixed, identifier: String? = .none) -> Self {
         guard value >= 0 else { return self }
         
         let key = items.count
         var temp = spaces[key] ?? []
-        temp.append(.init(constant: value, mode: mode))
+        temp.append(.init(constant: value, mode: mode, identifier: identifier))
         spaces[key] = temp
         return self
     }
@@ -76,8 +78,22 @@ public class LinearLayout {
     /// - Returns: LinearLayout
     @discardableResult
     public func done() -> Self {
-        changed?()
+        completed?()
         return self
+    }
+}
+
+extension LinearLayout {
+    
+    public func update(spacing value: CGFloat, for identifier: String) {
+        for (key, var array) in spaces {
+            for (index, var space) in array.enumerated() where space.identifier == identifier {
+                space.constant = value
+                array[index] = space
+                spaces[key] = array
+            }
+        }
+        spacingChanged?((value, identifier))
     }
 }
 
@@ -143,8 +159,9 @@ extension LinearLayout {
     }
     
     public struct Space {
-        let constant: CGFloat
+        var constant: CGFloat
         let mode: Mode
+        let identifier: String?
     }
 }
 
