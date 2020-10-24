@@ -28,6 +28,8 @@ public class LinearView: UIView {
         super.init(frame: frame)
         setup()
         setupLayout()
+        
+        update(layout)
     }
     
     required init?(coder: NSCoder) {
