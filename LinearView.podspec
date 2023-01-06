@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "LinearView"
-s.version      = "1.0.2"
+s.version      = "1.1.0"
 s.summary      = "基于UIStackView构建的线性布局视图 使用链式封装快速构建垂直或水平排版的视图"
 
 s.homepage     = "https://github.com/lixiang1994/LinearView"

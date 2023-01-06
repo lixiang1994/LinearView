@@ -1,5 +1,5 @@
 PODS:
-  - LinearView (1.0.0)
+  - LinearView (1.1.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -15,9 +15,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  LinearView: f1b300be0271e56f8e10bd8adac2299ca4d9163d
+  LinearView: 72b9208133edfef82e9b2036d9754982bb4bbec2
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
 PODFILE CHECKSUM: 60de993fcdb875ec3784220f656add5fd9fb50aa
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.11.3

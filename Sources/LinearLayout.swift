@@ -173,5 +173,11 @@ extension LinearLayout.Space {
         
         /// When the adjacent view is hidden, the spacing will disappear with the view
         case follow
+        
+        /// When the adjacent previous view is hidden, the spacing will disappear with the view
+        case followLast
+        
+        /// When the next adjacent view is hidden, the spacing will disappear with the view
+        case followNext
     }
 }

@@ -359,8 +359,12 @@ public class LinearView: UIView {
             // 间距模式
             switch space.mode {
             case .follow:
-                // 添加需要跟随的视图
+                view.add(follow: last, with: next)
+                
+            case .followLast:
                 view.add(follow: last)
+                
+            case .followNext:
                 view.add(follow: next)
                 
             default:
@@ -471,5 +475,29 @@ fileprivate class SpacingView: UIView {
                 self?.isHidden = object.isHidden
             }
         )
+    }
+    
+    func add(follow last: UIView?, with next: UIView?) {
+        if let last = last, let next = next {
+            let handle: (Bool, Bool) -> Void = { [weak self] (last, next) in
+                self?.isHidden = last || next
+            }
+            observations.append(
+                last.observe(\.isHidden) { (object, changed) in
+                    handle(object.isHidden, next.isHidden)
+                }
+            )
+            observations.append(
+                next.observe(\.isHidden) { (object, changed) in
+                    handle(last.isHidden, object.isHidden)
+                }
+            )
+            
+        } else if let last = last {
+            add(follow: last)
+            
+        } else if let next = next {
+            add(follow: next)
+        }
     }
 }

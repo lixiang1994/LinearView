@@ -68,9 +68,8 @@ class SpacingViewController: UIViewController {
         .spacing(10)
         .view(b)
         .spacing(20, mode: .follow) // 设置为跟随模式 间距将跟随临近的视图显示与隐藏
-//        .spacing(20)
         .view(c)
-        .spacing(30)
+        .spacing(30, mode: .followNext)
         .view(d)
         .done()
         
@@ -83,6 +82,18 @@ class SpacingViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 UIView.animate(withDuration: 2) {
                     c.isHidden = false
+                }
+                    
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    UIView.animate(withDuration: 2) {
+                        d.isHidden = true
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        UIView.animate(withDuration: 2) {
+                            d.isHidden = false
+                        }
+                    }
                 }
             }
         }
