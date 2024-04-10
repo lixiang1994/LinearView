@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "LinearView"
-s.version      = "1.1.0"
+s.version      = "1.2.0"
 s.summary      = "基于UIStackView构建的线性布局视图 使用链式封装快速构建垂直或水平排版的视图"
 
 s.homepage     = "https://github.com/lixiang1994/LinearView"
@@ -23,4 +23,9 @@ s.ios.deployment_target = '9.0'
 
 s.source_files  = ["Sources/*.swift"]
 
+  s.subspec 'Privacy' do |ss|
+      ss.resource_bundles = {
+        "Privacy" => 'Sources/PrivacyInfo.xcprivacy'
+      }
+  end
 end
